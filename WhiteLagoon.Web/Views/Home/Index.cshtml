@@ -60,23 +60,32 @@
 
 
 @section scripts{
-    @* <script> *@
-    @*    function LoadVillaList() { *@
-    @*         var objData = { *@
-    @*             checkInDate = $("#CheckInDate").val(), *@
-    @*             nights = $("$Nights").val() *@
-    @*         }; *@
+    <script>
+        function LoadVillaList() {
+            $('.spinner').show();
+            var objData = { 
+                checkInDate: $("#CheckInDate").val(), 
+                nights: $("#Nights").val() 
+            }; 
 
-    @*         $.ajax({ *@
-    @*             url: "GetVillasByDate/Home", *@
-    @*             data: objData, *@
-    @*             type: "POST", *@
-    @*             success: function (data) { *@
-    @*                 $("#VillasList").empty(); *@
-    @*                 $("#VillasList").html(data); *@
-    @*             } *@
-    @*         }); *@
-    @*     } *@
-    @* </script> *@
-
+            $.ajax({ 
+                url: "@Url.Action("GetVillasByDate","Home")", 
+                data: objData, 
+                type: "POST", 
+                success: function (data) {
+                     $("#VillasList").empty(); 
+                     $("#VillasList").html(data);
+                     $('.spinner').hide();
+                }, 
+                failure: function(response) {
+                     $('.spinner').hide();
+                     alert(response.responseText);
+                },
+                error: function(response){
+                     $('.spinner').hide();
+                     alert(response.responseText);
+                }
+            }); 
+        } 
+    </script>
 }
