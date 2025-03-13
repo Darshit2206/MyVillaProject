@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
 using WhiteLagoon.Application.Common.Interfaces;
 using WhiteLagoon.Domain.Entities;
 using WhiteLagoon.Infrastructure.Data;
@@ -28,6 +29,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
      option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))       
 );
 var app = builder.Build();
+
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<String>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

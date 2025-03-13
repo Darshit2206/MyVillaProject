@@ -24,15 +24,9 @@ namespace WhiteLagoon.Web.Controllers
             return View(homeVM);
         }
         [HttpPost]
-        public IActionResult Index(HomeVM homeVM)
-        {
-            homeVM.VillaList = _unitOfWork.Villa.GetAll(incProps: "VillaAmenity");  
-            return View(homeVM);
-        }
-
         public IActionResult GetVillasByDate(int night, DateOnly checkInDate)
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
             var villaList = _unitOfWork.Villa.GetAll(incProps: "VillaAmenity").ToList();
             foreach (var villa in villaList)
             {
