@@ -18,6 +18,12 @@ namespace WhiteLagoon.Web.Controllers
             _unitOfWork = unitOfWork;
         }
         [Authorize]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [Authorize]
         public IActionResult FinalizeBooking(int villaId, DateOnly checkInDate, int nights)
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
@@ -103,5 +109,39 @@ namespace WhiteLagoon.Web.Controllers
             }
             return View(bookingId);
         }
-    }   
+
+        [Authorize]
+        public IActionResult BookingDetails(int bookingId)
+        {
+            Booking bookingFromDb = _unitOfWork.Booking.Get(u => u.Id == bookingId, incProps: "User,Villa");
+            return View(bookingFromDb);
+        }
+
+        #region API Calls
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetAll(string status)
+        {
+            IEnumerable<Booking> bookingList;
+
+            if (User.IsInRole(SD.Role_Admin))
+            {
+                bookingList = _unitOfWork.Booking.GetAll(incProps: "User,Villa");
+            }
+            else
+            {
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                bookingList = _unitOfWork.Booking.GetAll(u => u.UserId == userId, incProps: "User,Villa");
+            }
+            if (!string.IsNullOrEmpty(status))
+            {
+                bookingList = bookingList.Where(u => u.Status.ToLower().Equals(status.ToLower()));
+            }
+            return Json(new { data = bookingList });
+        }
+        #endregion
+    }
 }
