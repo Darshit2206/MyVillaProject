@@ -11,7 +11,6 @@ namespace WhiteLagoon.Web.Controllers
         static int prevMonth = DateTime.Now.Month == 1 ? 12 : DateTime.Now.Month - 1;
         readonly DateTime prevMonthStartDate = new(DateTime.Now.Year, prevMonth, 1);
         readonly DateTime currentMonthStartDate = new(DateTime.Now.Year, DateTime.Now.Month, 1);
-
         public DashboardController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -186,7 +185,6 @@ namespace WhiteLagoon.Web.Controllers
 
             return Json(lineChartVM); 
         }
-
     }
 }
 

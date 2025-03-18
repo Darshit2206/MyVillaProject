@@ -19,6 +19,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Stripe.net" Version="47.4.0" />
+    <PackageReference Include="Syncfusion.DocIO.Net.Core" Version="28.2.11" />
+    <PackageReference Include="Syncfusion.DocIORenderer.Net.Core" Version="28.2.11" />
+    <PackageReference Include="Syncfusion.Licensing" Version="28.2.11" />
+    <PackageReference Include="Syncfusion.Pdf.Net.Core" Version="28.2.11" />
+    <PackageReference Include="Syncfusion.Presentation.Net.Core" Version="28.2.11" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +32,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\VillaImage\" />
+    <Folder Include="wwwroot\exports\" />
   </ItemGroup>
 
 </Project>
